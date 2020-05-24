@@ -15,7 +15,7 @@
         .grid {
             width: 3px;
             height: 100vh;
-            position: fixed;
+            position: absolute;
             background-color: black;
         }
 
@@ -164,6 +164,8 @@
         container.appendChild(block);
     });
 
+    const col_height = height * data.length;
+
     for (let i = 0; i < cols; i++) {
         const block = document.createElement('div');
 
@@ -179,12 +181,14 @@
 
         block.classList.add('grid');
         block.style.left = i * width + 'px';
+        block.style.height = col_height + 'px';
         container.appendChild(block);
     }
     {
         const block = document.createElement('div');
         block.classList.add('grid');
         block.style.left = cols * width + 'px';
+        block.style.height = col_height + 'px';
         container.appendChild(block);
     }
 </script>
