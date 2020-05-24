@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Пум-Пум</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            position: relative;
+            width: 1600px;
+        }
+
+        .grid {
+            width: 3px;
+            height: 100vh;
+            position: fixed;
+            background-color: black;
+        }
+
+        .grid span {
+            position: absolute;
+            left: 10px;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            z-index: -1;
+        }
+
+        .grid .top {
+            top: 10px;
+        }
+
+        .grid .btm {
+            bottom: 10px;
+        }
+
+        .block {
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid white;
+            box-sizing: border-box;
+            position: absolute;
+            height: 60px;
+            padding: 0 10px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: black;
+
+            color: white;
+        }
+
+        .block_1 {
+            background: rgb(47, 64, 94);
+            /*background: linear-gradient(135deg, rgba(47, 64, 94, 1) 0%, rgba(134, 42, 157, 1) 100%);*/
+        }
+
+        .block_2 {
+            background: rgb(47, 94, 82);
+            /*background: linear-gradient(135deg, rgba(47, 94, 82, 1) 0%, rgba(42, 157, 75, 1) 100%);*/
+        }
+
+        .block_3 {
+            background: rgb(208, 0, 0);
+            /*background: linear-gradient(135deg, rgba(208, 0, 0, 1) 0%, rgba(78, 42, 157, 1) 100%);*/
+        }
+
+        .block_4 {
+            background: rgb(122, 114, 208);
+            /*background: linear-gradient(135deg, rgb(208, 104, 38) 0%, rgb(139, 68, 157) 100%);*/
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const data = [
+        ["Информатика и программировние", 1, 2, 1],
+        ["Матан", 1, 3, 2],
+        ["Линал", 1, 2, 2],
+        ["Геома", 1, 1, 2],
+        ["Диса", 1, 2, 2],
+        ["Деловое общение", 1, 1, 3],
+        ["ИнЯз", 1, 4, 3],
+        ["ПрППр", 1, 2, 4],
+
+        ["История", 2, 2, 3],
+        ["ППП", 2, 2, 4],
+
+        ["ЯМП", 3, 4, 1],
+        ["ООП", 3, 3, 1],
+        ["МатЛогика", 3, 3, 2],
+        ["ТерВер", 3, 3, 2],
+        ["Культурология", 3, 3, 3],
+        ["Алгоритмы и анализ сложности", 3, 3, 4],
+
+        ["Операционные системы", 4, 4, 1],
+        ["Архитектуры вычислительных систем", 4, 4, 1],
+        ["МатСтат", 4, 4, 2],
+        ["Диффуры", 4, 4, 2],
+        ["Неклассические логики", 4, 4, 2],
+        ["Правоведение", 4, 4, 3],
+
+        ["Архитектуры современных микропроцессоров", 5, 5, 1],
+        ["Физика", 5, 5, 2],
+        ["Численные методы", 5, 6, 2],
+        ["Компьютерные сети", 5, 5, 4],
+        ["Python", 5, 5, 4],
+        ["C#", 5, 5, 4],
+
+        ["Проектирование информационных систем", 6, 6, 1],
+        ["Комппьютереная графика", 6, 6, 1],
+        ["Основы облачных вычислений", 6, 6, 1],
+        ["Методы оптимизации", 6, 6, 2],
+        ["Java", 6, 6, 4],
+        ["Объектно-ориентированный анализ и проектирование", 6, 6, 4],
+        ["Основы научно-исследовательской деятельности", 6, 6, 4],
+        ["Программирование встроенных систем", 6, 6, 4],
+
+        ["рСУБД", 7, 7, 1],
+        ["UML", 7, 7, 1],
+        ["Прикладная теория графов", 7, 7, 1],
+
+
+        ["Основы проектного менеджмента", 7, 7, 3],
+        ["Философия", 7, 7, 3],
+        ["Информационная безопастность и защита информации", 7, 7, 4],
+        ["Программирование для мобильных устройств", 7, 7, 4],
+
+        ["Психология", 8, 8, 3],
+        ["(О)БЖ", 8, 8, 3],
+        ["Алгоритмы бионформатики", 8, 8, 4],
+
+        ["Математические основы компютерной графики", 5, 5, 1],
+        ["Компьютерная математика", 5, 5, 1],
+        ["Тренинг для обуч с ограничениями здоровья", 5, 5, 1],
+
+        ["Методы компиляции", 7, 7, 2],
+        ["Синтаксические компиляторы", 7, 7, 2],
+        ["Тренинг для обуч с ограничениями здоровья", 7, 7, 2],
+
+        ["Введение в Unix", 7, 7, 3],
+        ["Введение в Linux", 7, 7, 3],
+
+        ["Современные интернет технологии", 8, 8, 4],
+        ["Программирование web-приложений", 8, 8, 4],
+    ];
+
+    const container = document.querySelector('body');
+    const width = 150;
+    const height = 60;
+    const cols = 8;
+
+    data.forEach((el, i) => {
+        const block = document.createElement('div');
+        block.classList.add('block', 'block_' + el[3]);
+        block.style.width = (el[2] - el[1] + 1) * width + 'px';
+        block.style.top = i * height + 'px';
+        block.style.left = (el[1] - 1) * width + 'px';
+        block.innerText = el[0];
+        container.appendChild(block);
+    });
+
+    for (let i = 0; i < cols; i++) {
+        const block = document.createElement('div');
+
+        const top = document.createElement('span');
+        top.classList.add('top');
+        top.innerText = (i + 1);
+        block.appendChild(top);
+
+        const btm = document.createElement('span');
+        btm.classList.add('btm');
+        btm.innerText = (i + 1);
+        block.appendChild(btm);
+
+        block.classList.add('grid');
+        block.style.left = i * width + 'px';
+        container.appendChild(block);
+    }
+    {
+        const block = document.createElement('div');
+        block.classList.add('grid');
+        block.style.left = cols * width + 'px';
+        container.appendChild(block);
+    }
+</script>
+</body>
+</html>
